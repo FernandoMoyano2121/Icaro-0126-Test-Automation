@@ -1,0 +1,11 @@
+try{
+
+    //Instrucciones cuando hay excepcion
+
+}catch(excepcion){
+
+    //Instrucciones que se ejecutan, sin importar si ocurren
+
+}finally{
+
+}
