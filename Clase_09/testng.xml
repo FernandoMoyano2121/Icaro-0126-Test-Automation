@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+    ============================================================
+    CLASE 09: Suite de Tests de Selenium
+
+    Esta suite ejecuta los tests de automatización web
+    sobre SauceDemo (https://www.saucedemo.com)
+    ============================================================
+-->
+
+<suite name="Suite Clase 09 - Selenium">
+    <test name="Tests de login SauceDemo">
+        <classes>
+            <class name="ar.org.icaro.automatizacion.SeleniumLoginTest"></class>
+            <class name="ar.org.icaro.automatizacion.LoginSauceDemoTest"></class>
+        </classes>
+    </test>
+</suite>
