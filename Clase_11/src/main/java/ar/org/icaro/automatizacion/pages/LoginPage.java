@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+public class LoginPage extends BasePage {
 
     // ============================================================
     // LOCALIZADORES
@@ -20,7 +18,7 @@ public class LoginPage {
     private By userNameField = By.id("user-name");
     private By passwordField = By.id("password");
     private By loginButton = By.id("login-button");
-    //private By errorMessage = By.className("error-message-contianer");
+    // ERROR: private By errorMessage = By.className("error-message-contianer");
     private By errorMessage = By.className("error-message-container");
 
     private static final String URL = "https://www.saucedemo.com";
@@ -30,8 +28,7 @@ public class LoginPage {
     // ============================================================
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
     }
 
     // ============================================================
@@ -48,19 +45,17 @@ public class LoginPage {
     // ============================================================
 
     public LoginPage enterUsername(String username) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(userNameField));
-        element.sendKeys(username);
+        type(userNameField,username);
         return this;
     }
 
     public LoginPage enterPassword(String password) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
-        element.sendKeys(password);
+        type(userNameField,password);
         return this;
     }
 
     public InventoryPage clickLogin() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        click(loginButton);
         return new InventoryPage(driver);
     }
 
@@ -75,7 +70,7 @@ public class LoginPage {
     public LoginPage loginExpectingError(String username, String password) {
         enterUsername(username);
         enterPassword(password);
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        click(loginButton);
         return this;
     }
 
@@ -84,38 +79,19 @@ public class LoginPage {
     // ============================================================
 
     public boolean isErrorDisplayed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            return wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(errorMessage)
-            ).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+       return isElementVisible(errorMessage);
     }
 
     public boolean isUsernameFieldDisplayed() {
-        try {
-            return driver.findElement(userNameField).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+       return isElementVisible(userNameField);
     }
 
     public boolean isPasswordFieldDisplayed() {
-        try {
-            return driver.findElement(passwordField).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+      return isElementVisible(passwordField);
     }
 
     public boolean isLoginButtonDisplayed() {
-        try {
-            return driver.findElement(loginButton).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+      return isElementVisible(loginButton);
     }
 
     public String getCurrentUrl() {
